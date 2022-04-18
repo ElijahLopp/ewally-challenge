@@ -1,10 +1,16 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { TicketHelper } from './helpers/ticket.helper';
 import { TicketController } from './ticket.controller';
 import { TicketService } from './ticket.service';
+import { TicketMiddleware } from './middlewares/ticket.middleware';
 
 @Module({
   imports: [],
   controllers: [TicketController],
-  providers: [TicketService],
+  providers: [TicketService, TicketHelper],
 })
-export class TicketModule {}
+export class TicketModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(TicketMiddleware).forRoutes('*');
+  }
+}
