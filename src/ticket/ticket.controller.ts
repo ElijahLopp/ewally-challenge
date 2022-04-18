@@ -7,11 +7,6 @@ import { TicketResponse } from './interfaces/ticket.interface';
 export class TicketController {
   constructor(private readonly ticketService: TicketService) {}
 
-  @Get('')
-  async getHello(): Promise<string> {
-    return 'Hello Worlds';
-  }
-
   @Get(':code')
   async getInformations(
     @Param('code', ValidationCode) code: string,
